@@ -2,7 +2,6 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { UserRepository } from "../repositories/user.repository";
 import { UserService } from "../services/user.service";
 import { createUserSchema } from "../schemas/create-user.schema";
-import { da } from "zod/locales";
 
 const userService = new UserService(new UserRepository());
 

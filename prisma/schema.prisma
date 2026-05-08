@@ -21,7 +21,7 @@ model User {
   books     Book[]
 }
 
-model Book {
+model Book { 
   id            String    @id @default(uuid())
   title         String
   author        String
