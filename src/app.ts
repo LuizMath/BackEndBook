@@ -12,3 +12,22 @@ app.register(cors, {
 app.register(fastifySensible);
 app.register(userRoutes);
 app.register(bookRoutes);
+
+app.setErrorHandler((error: any, req, reply) => {
+  const statusCode = error.statusCode ?? 500;
+  req.log.error(error);
+  switch (error.code) {
+    case "P2002":
+      return reply.conflict("Chave duplicada!");
+    case "P2025":
+      return reply.notFound("Registro não encontrado!");
+    case "P2003":
+      return reply.badRequest("Relacionamento inválido!");
+    default:
+      return reply.status(statusCode).send({
+        statusCode,
+        error: error.name ?? "Erro",
+        message: error.message ?? "Erro interno no servidor!",
+      });
+  }
+});
